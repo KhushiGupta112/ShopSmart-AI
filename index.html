@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ShopSmart AI — Shopping Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">✦</span><div><strong>ShopSmart AI</strong><small>Find your next favorite</small></div></div>
+    <span class="demo-pill">HACKATHON PROTOTYPE</span>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">SMARTER CHOICES, LESS SCROLLING</span>
+        <h1>Shopping made<br><em>simple.</em></h1>
+        <p>Tell us what you need. Explore thoughtful recommendations, compare options, and find products that fit your budget.</p>
+        <a class="hero-cta" href="#discover">Explore products <span>↘</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orb orb-one"></div><div class="orb orb-two"></div>
+        <div class="floating-card card-a"><span>✨</span><div><b>Personalized</b><small>Recommendations</small></div></div>
+        <div class="product-stack"><div class="stack-circle">🛍️</div><div class="stack-line"></div><div class="stack-line short"></div></div>
+        <div class="floating-card card-b"><span>₹</span><div><b>Budget-friendly</b><small>Options for you</small></div></div>
+      </div>
+    </section>
+    <section class="assistant-panel">
+      <div class="assistant-intro"><div class="sparkle">✦</div><div><h2>Ask your shopping assistant</h2><p>Try “I need study accessories under 1500” or ask to compare products.</p></div></div>
+      <div class="chat-row"><input id="chatInput" type="text" placeholder="What are you looking for?" aria-label="Ask shopping assistant"><button id="chatSend">Ask AI <span>↗</span></button></div>
+      <div id="chatReply" class="chat-reply" role="status">Your assistant is ready. Ask for a recommendation to get started.</div>
+      <div class="suggestions"><button class="suggestion">Gadgets for coding</button><button class="suggestion">Study essentials under 1000</button><button class="suggestion">Audio for travel</button></div>
+    </section>
+    <section id="discover" class="discover">
+      <div class="section-heading"><div><span class="eyebrow">CURATED FOR YOUR NEEDS</span><h2>Discover products</h2></div><span class="result-count" id="resultCount">10 demo items</span></div>
+      <div class="filters">
+        <label class="search-box"><span>⌕</span><input id="searchInput" placeholder="Search products, use cases..." aria-label="Search products"></label>
+        <select id="categorySelect" aria-label="Filter by category">{% for category in categories %}<option value="{{ category }}">{{ category }}</option>{% endfor %}</select>
+        <label class="budget-box"><span>Max ₹</span><input id="budgetInput" type="number" min="0" placeholder="Any budget" aria-label="Maximum budget"></label>
+        <button id="clearFilters" class="clear-btn">Clear</button>
+      </div>
+      <div id="productGrid" class="product-grid">
+        {% for p in products %}
+        <article class="product-card">
+          <div class="product-visual"><span class="product-icon">{{ p.icon }}</span><span class="category-tag">{{ p.category }}</span></div>
+          <div class="product-info"><div class="product-title-row"><h3>{{ p.name }}</h3><span class="rating">★ {{ p.rating }}</span></div><p>{{ p.description }}</p><div class="product-bottom"><strong>₹{{ p.price }}</strong><button class="compare-btn" data-id="{{ p.id }}" data-name="{{ p.name }}">Details ↗</button></div></div>
+        </article>
+        {% endfor %}
+      </div>
+      <p id="emptyState" class="empty-state" hidden>No matching products. Try a different search or budget.</p>
+      <p class="disclaimer">Demo catalog and illustrative ratings/prices for prototype purposes only. Not affiliated with or connected to Amazon. No live inventory or product data is used.</p>
+    </section>
+  </main>
+  <footer><span>✦ ShopSmart AI</span><span>Built as an independent hackathon prototype</span></footer>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
